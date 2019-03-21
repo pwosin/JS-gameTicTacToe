@@ -49,7 +49,7 @@ const rmOnclick = numb => {
 const checkWinner = x => {
     let color;
     let state;
-    if(!(helpBoard.includes(0))) gameInfo.innerHTML = '<h2 class="text-center pt-5"> Game over! Its a Tie!</h2>';
+    if(!(helpBoard.includes(0))) gameInfo.innerHTML = '<h2 class="text-center pt-2"> Game over! Its a Tie!</h2>';
     for(let i=0; i<possibeWin.length;i++){
         if (helpBoard[possibeWin[i][0]] + helpBoard[possibeWin[i][1]] + helpBoard[possibeWin[i][2]] === x){
             if(x == 3){
@@ -63,7 +63,7 @@ const checkWinner = x => {
             playBoard[possibeWin[i][0]].style.color = color;
             playBoard[possibeWin[i][1]].style.color = color
             playBoard[possibeWin[i][2]].style.color = color;
-            gameInfo.innerHTML = '<h2 class="text-center pt-5"> Game over! You '+state+'!</h2>';
+            gameInfo.innerHTML = '<h2 class="text-center pt-2"> Game over! You '+state+'!</h2>';
         }     
     }
 }   
@@ -82,7 +82,7 @@ const isAboutToWin = numb => {
                 return possibeWin[i][2];
             }
             else {
-                return 0;
+                return -1;
             }
         }
     }
@@ -93,14 +93,14 @@ const compMove = () => {
     let isComputerWining = isAboutToWin(20);
     let isPlayerWining = isAboutToWin(2);
     //checking copmuter is one move from win, if true make a move and win
-    if(isComputerWining){
+    if(isComputerWining >= 0){
         playBoard[isComputerWining].innerHTML = '<i class="fas fa-times"></i>';
         helpBoard[isComputerWining] = cpMove; // adding computer move to helpboard
         //console.log('comp is winning');
         rmOnclick(isComputerWining); // removing click possibilieties on computer picked field
     }
     //check if player is one move from win, it true make block move
-     else if(isPlayerWining){
+     else if(isPlayerWining >=0){
         playBoard[isPlayerWining].innerHTML = '<i class="fas fa-times"></i>';
         helpBoard[isPlayerWining] = cpMove;
         //console.log('player is winning');
@@ -123,14 +123,14 @@ const compMove = () => {
             //console.log(' while 1 diagonal');
         }
         playBoard[item].innerHTML = '<i class="fas fa-times"></i>';
-        helpBoard[item]=10;
+        helpBoard[item]= cpMove;
         rmOnclick(item);
 }
 //then on other fields
     else if(helpBoard.indexOf(0) > 0){
         let index = helpBoard.indexOf(0);
         playBoard[index].innerHTML = '<i class="fas fa-times"></i>';
-        helpBoard[index]=10;
+        helpBoard[index]= cpMove;
         rmOnclick(index);
     }
         playerMove = true; // eneble player turn
