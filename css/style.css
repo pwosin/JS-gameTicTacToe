@@ -1,0 +1,31 @@
+ 
+
+#playboard {
+    height: 300px;
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
+#playboard .row {
+    height: 60px;
+    width: 300px;
+    margin: 0 auto;
+}
+#playboard .row .move {
+    width: 40px;
+    height: 60px;
+}
+
+.header {
+    color: red;
+}
+
+#playboard .row .far {
+    font-size: 40px;
+    padding-top: 10px;
+}
+
+#playboard .row .fas {
+    font-size: 40px;
+    padding-top: 10px;
+}
