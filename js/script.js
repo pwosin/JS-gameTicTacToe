@@ -9,9 +9,8 @@ const startGame = document.getElementById("startGame");
 const plMove = 1; // player move is 1 in help board
 const cpMove = 10; // computer move is 10 in help board
 let playerMove = true;
-let move = 0;
 let diagonal = [0, 2, 6, 8]; // table with corner fields 
-let cross = [1, 3, 5, 7]; // table with cross fields 
+
 
 //cearing playboard 
 const clearBoard = () => {
@@ -96,14 +95,14 @@ const compMove = () => {
     //checking copmuter is one move from win, if true make a move and win
     if(isComputerWining){
         playBoard[isComputerWining].innerHTML = '<i class="fas fa-times"></i>';
-        helpBoard[isComputerWining] = 10; // adding computer move to helpboard
+        helpBoard[isComputerWining] = cpMove; // adding computer move to helpboard
         //console.log('comp is winning');
         rmOnclick(isComputerWining); // removing click possibilieties on computer picked field
     }
     //check if player is one move from win, it true make block move
      else if(isPlayerWining){
         playBoard[isPlayerWining].innerHTML = '<i class="fas fa-times"></i>';
-        helpBoard[isPlayerWining] = 10;
+        helpBoard[isPlayerWining] = cpMove;
         //console.log('player is winning');
         rmOnclick(isPlayerWining);
     }
@@ -111,7 +110,7 @@ const compMove = () => {
     else if(helpBoard[4]===0){
         playBoard[4].innerHTML = '<i class="fas fa-times"></i>';
         //console.log('taking midle');
-        helpBoard[4] = 10;
+        helpBoard[4] = cpMove;
         rmOnclick(4);
     }
     //first move on corners fields
@@ -127,18 +126,12 @@ const compMove = () => {
         helpBoard[item]=10;
         rmOnclick(item);
 }
-//then on cross fields
-    else if(helpBoard[cross[0]]===0 || helpBoard[cross[1]]===0 || helpBoard[cross[2]]===0 || helpBoard[cross[3]]===0){
-        let item = cross[Math.floor(Math.random()*cross.length)];
-        //make little randomization so computer move looks more like human
-        while(helpBoard[item]!=0){
-            item = cross[Math.floor(Math.random()*diagonal.length)];
-            if(cross[item===0]) break;
-            //console.log('while 2 cross');
-        }
-        playBoard[item].innerHTML = '<i class="fas fa-times"></i>';
-        helpBoard[item]=10;
-        rmOnclick(item);
+//then on other fields
+    else if(helpBoard.indexOf(0) > 0){
+        let index = helpBoard.indexOf(0);
+        playBoard[index].innerHTML = '<i class="fas fa-times"></i>';
+        helpBoard[index]=10;
+        rmOnclick(index);
     }
         playerMove = true; // eneble player turn
     
